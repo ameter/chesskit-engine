@@ -31,7 +31,21 @@ let package = Package(
                 .headerSearchPath("Engines/lc0/src"),
                 .headerSearchPath("Engines/lc0/subprojects/eigen-3.4.0"),
                 .define("NNUE_EMBEDDING_OFF"),
-                .define("NO_PEXT")
+                .define("NO_PEXT"),
+                
+                .define("_MAC"),
+                .define("USE_INTRINSICS"),
+                .define("USE_ASM"),
+                .define("SYZYGY_TBS"),
+                .define("ARASAN_VERSION=v24.0.0-4-g1d74b80"),
+                .define("_64BIT"),
+                .define("SMP"),
+                .define("SMP_STATS"),
+                .define("USE_INTRINSICS"),
+                .define("NNUE"),
+                
+                .headerSearchPath("Engines/arasan-chess/src"),
+                .headerSearchPath("Engines/arasan-chess/src/nnue"),
             ],
             linkerSettings: [
                 .linkedLibrary("z")
@@ -48,6 +62,21 @@ let package = Package(
 // MARK: - ChessKitEngineCore excludes
 
 package.targets.first { $0.name == "ChessKitEngineCore" }?.exclude = [
+    // Arasan
+    "Engines/arasan-chess/src/tuner.cpp",
+    "Engines/arasan-chess/src/tune.cpp",
+    "Engines/arasan-chess/src/topo.cpp",
+    "Engines/arasan-chess/src/bitbase.cpp",
+    "Engines/arasan-chess/src/util",
+    "Engines/arasan-chess/src/nnue/test",
+    "Engines/arasan-chess/src/syzygy/src/apps",
+    "Engines/arasan-chess/src/syzygy/src/tbchess.c",
+    
+//    "Engines/arasan-chess/src/nnueintf.cpp",
+    
+    "Engines/Stockfish",
+    "Engines/Extensions/stockfish+engine.cpp",
+        
     // lc0
     "Engines/lc0/build",
     "Engines/lc0/cross-files",
